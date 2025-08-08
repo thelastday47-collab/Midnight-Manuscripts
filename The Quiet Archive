@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nocturnal Animals - Carolina Ticle</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #fefefe;
+            color: #2c2c2c;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid #e8e8e8;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            background: #fefefe;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #2c2c2c;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            color: #8b7355;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: normal;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-style: italic;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            color: #8b7355;
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: none;
+            padding: 60px 0;
+        }
+
+        .main-content.active {
+            display: block;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+
+        /* Cards */
+        .card {
+            background: #fefefe;
+            border: 1px solid #e8e8e8;
+            padding: 30px;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: normal;
+            letter-spacing: 1px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* Review Cards */
+        .review-card {
+            border-left: 3px solid #8b7355;
+            padding-left: 25px;
+        }
+
+        .book-cover {
+            width: 100%;
+            max-width: 200px;
+            height: 280px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border-radius: 2px;
+        }
+
+        .book-info {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .book-details h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .book-details .author {
+            color: #8b7355;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            color: #d4af37;
+            margin-bottom: 15px;
+        }
+
+        .affiliate-link {
+            display: inline-block;
+            background: #8b7355;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+            margin-top: 15px;
+        }
+
+        .affiliate-link:hover {
+            background: #6d5a42;
+        }
+
+        /* Article Cards */
+        .article-card {
+            border-bottom: 1px solid #e8e8e8;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+
+        .article-date {
+            color: #8b7355;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .article-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .article-title:hover {
+            color: #8b7355;
+        }
+
+        .article-excerpt {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .read-more {
+            color: #8b7355;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* Photo Gallery */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .photo-item {
+            aspect-ratio: 1;
+            background: #f5f5f5;
+            border: 1px solid #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Music Section */
+        .music-player {
+            background: #f9f9f9;
+            padding: 30px;
+            border: 1px solid #e8e8e8;
+            text-align: center;
+        }
+
+        .current-song {
+            margin-bottom: 20px;
+        }
+
+        .song-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .song-artist {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #e8e8e8;
+            padding: 40px 0;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .book-info {
+                flex-direction: column;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">nocturnal animals</div>
+                <nav>
+                    <ul>
+                        <li><a href="#" onclick="showSection('home')" class="active">inicio</a></li>
+                        <li><a href="#" onclick="showSection('reviews')">reseñas</a></li>
+                        <li><a href="#" onclick="showSection('articles')">artículos</a></li>
+                        <li><a href="#" onclick="showSection('gallery')">galería</a></li>
+                        <li><a href="#" onclick="showSection('services')">servicios</a></li>
+                        <li><a href="#" onclick="showSection('music')">música</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Carolina Ticle</h1>
+            <p>"She doesn't speak too much but she leads the most intelligent conversations. She is a thinker. She has her coffee and books and music."</p>
+            <div class="social-links">
+                <a href="#" title="Substack"><i class="fas fa-newspaper"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Threads"><i class="fas fa-at"></i></a>
+                <a href="#" title="Pinterest"><i class="fab fa-pinterest"></i></a>
+                <a href="#" title="Chill Subs"><i class="fas fa-pen-fancy"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Home Section -->
+    <section id="home" class="main-content active">
+        <div class="container">
+            <div class="grid grid-3">
+                <div class="card fade-in">
+                    <h3>Escritora & Freelancer</h3>
+                    <p>Especializada en redacción creativa, corrección gramatical y de estilo. Cada palabra cuenta una historia, cada texto tiene su propia alma esperando ser descubierta.</p>
+                </div>
+                <div class="card fade-in">
+                    <h3>Ghostwriter</h3>
+                    <p>Doy voz a tus ideas más profundas, creando narrativas que resuenan con autenticidad. El arte de escribir desde las sombras, con pasión y dedicación.</p>
+                </div>
+                <div class="card fade-in">
+                    <h3>Reseñista Literaria</h3>
+                    <p>Explorando mundos entre páginas, analizando cada detalle que hace especial a una historia. Literatura y cine desde una perspectiva íntima y reflexiva.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="main-content">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 50px; font-size: 32px; font-weight: normal;">Reseñas Literarias</h2>
+            
+            <div class="grid grid-2">
+                <div class="card review-card fade-in">
+                    <div class="book-info">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='280' style='background:%23f5f5f5'><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-family='serif' font-size='14' fill='%23999'>Portada del Libro</text></svg>" alt="Portada" class="book-cover">
+                        <div class="book-details">
+                            <h4>Título del Libro</h4>
+                            <p class="author">por Nombre del Autor</p>
+                            <div class="rating">★★★★☆</div>
+                            <p>Una reseña breve pero profunda que capture la esencia de la obra. Aquí analizo los elementos narrativos, personajes y el impacto emocional que genera en el lector. Esta es una reseña de aproximadamente 100 palabras que ofrece una perspectiva única y personal sobre la lectura.</p>
+                            <a href="#" class="affiliate-link">Comprar libro</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card review-card fade-in">
+                    <div class="book-info">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='280' style='background:%23f5f5f5'><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-family='serif' font-size='14' fill='%23999'>Portada del Libro</text></svg>" alt="Portada" class="book-cover">
+                        <div class="book-details">
+                            <h4>Otro Título Fascinante</h4>
+                            <p class="author">por Autor Reconocido</p>
+                            <div class="rating">★★★★★</div>
+                            <p>Esta es una reseña más extensa que permite un análisis más profundo de la obra. Exploro no solo la trama y los personajes, sino también los temas subyacentes, el estilo narrativo del autor, y cómo la obra se relaciona con el contexto literario actual. Incluyo reflexiones personales sobre cómo el libro resonó conmigo como lectora, qué emociones despertó y por qué creo que merece ser leído. También analizo aspectos técnicos como la estructura narrativa, el desarrollo de personajes y la calidad de la prosa. Esta reseña alcanza las 300-350 palabras aproximadamente.</p>
+                            <a href="#" class="affiliate-link">Comprar libro</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center" style="margin-top: 40px;">
+                <button onclick="addNewReview()" style="background: #8b7355; color: white; padding: 12px 24px; border: none; cursor: pointer; letter-spacing: 1px;">Agregar Nueva Reseña</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section id="articles" class="main-content">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 50px; font-size: 32px; font-weight: normal;">Artículos</h2>
+            
+            <div class="article-card fade-in">
+                <div class="article-date">Febrero 8, 2025</div>
+                <h3 class="article-title">El Arte de la Corrección: Más Allá de la Gramática</h3>
+                <p class="article-excerpt">Explorar el mundo de la corrección de textos es adentrarse en un universo donde cada coma tiene su propósito y cada palabra busca su lugar perfecto...</p>
+                <a href="#" class="read-more">Leer más →</a>
+            </div>
+
+            <div class="article-card fade-in">
+                <div class="article-date">Febrero 5, 2025</div>
+                <h3 class="article-title">Reflexiones de una Ghostwriter</h3>
+                <p class="article-excerpt">Escribir desde las sombras requiere una habilidad especial: la capacidad de adoptar voces ajenas sin perder la esencia propia...</p>
+                <a href="#" class="read-more">Leer más →</a>
+            </div>
+
+            <div class="text-center" style="margin-top: 40px;">
+                <button onclick="addNewArticle()" style="background: #8b7355; color: white; padding: 12px 24px; border: none; cursor: pointer; letter-spacing: 1px;">Agregar Nuevo Artículo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="main-content">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 50px; font-size: 32px; font-weight: normal;">Galería Aesthetic</h2>
+            
+            <div class="photo-grid">
+                <div class="photo-item" onclick="uploadPhoto(this)">
+                    <i class="fas fa-plus" style="font-size: 24px;"></i>
+                </div>
+                <div class="photo-item" onclick="uploadPhoto(this)">
+                    <i class="fas fa-plus" style="font-size: 24px;"></i>
+                </div>
+                <div class="photo-item" onclick="uploadPhoto(this)">
+                    <i class="fas fa-plus" style="font-size: 24px;"></i>
+                </div>
+                <div class="photo-item" onclick="uploadPhoto(this)">
+                    <i class="fas fa-plus" style="font-size: 24px;"></i>
+                </div>
+                <div class="photo-item" onclick="uploadPhoto(this)">
+                    <i class="fas fa-plus" style="font-size: 24px;"></i>
+                </div>
+                <div class="photo-item" onclick="uploadPhoto(this)">
+                    <i class="fas fa-plus" style="font-size: 24px;"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="main-content">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 50px; font-size: 32px; font-weight: normal;">Servicios</h2>
+            
+            <div class="grid grid-3">
+                <div class="card fade-in">
+                    <h3>Redacción Creativa</h3>
+                    <p>Artículos, ensayos, contenido web y narrativas que capturan la esencia de tu mensaje con estilo único y profesional.</p>
+                </div>
+                <div class="card fade-in">
+                    <h3>Corrección Gramatical</h3>
+                    <p>Revisión exhaustiva de textos, corrección de estilo, coherencia narrativa y optimización del mensaje.</p>
+                </div>
+                <div class="card fade-in">
+                    <h3>Ghostwriting</h3>
+                    <p>Doy vida a tus ideas escribiendo en tu voz, manteniendo confidencialidad absoluta y entregando contenido de alta calidad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Section -->
+    <section id="music" class="main-content">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 50px; font-size: 32px; font-weight: normal;">Música que Inspira</h2>
+            
+            <div class="music-player">
+                <div class="current-song">
+                    <div class="song-title">Currently Playing</div>
+                    <div class="song-artist">Selecciona una canción de tu playlist favorita</div>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <h4 style="margin-bottom: 20px;">Playlist de Escritura</h4>
+                    <div style="text-align: left; max-width: 400px; margin: 0 auto;">
+                        <div style="padding: 10px; border-bottom: 1px solid #e8e8e8; cursor: pointer;" onclick="playFromPlaylist(this)">
+                            <strong>Clair de Lune</strong> - Claude Debussy
+                        </div>
+                        <div style="padding: 10px; border-bottom: 1px solid #e8e8e8; cursor: pointer;" onclick="playFromPlaylist(this)">
+                            <strong>Mad World</strong> - Gary Jules
+                        </div>
+                        <div style="padding: 10px; border-bottom: 1px solid #e8e8e8; cursor: pointer;" onclick="playFromPlaylist(this)">
+                            <strong>The Night We Met</strong> - Lord Huron
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Nocturnal Animals - Carolina Ticle. Todos los derechos reservados.</p>
+            <p style="margin-top: 10px; font-style: italic;">"There's something so deep in her eyes. That's why everybody stares at her."</p>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.main-content');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update active nav link
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Animate elements
+            const cards = document.querySelectorAll(`#${sectionId} .fade-in`);
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        }
+
+        function addNewReview() {
+            const title = prompt("Título del libro:");
+            const author = prompt("Autor del libro:");
+            const rating = prompt("Calificación (1-5 estrellas):");
+            const review = prompt("Reseña (máximo 350 palabras):");
+            const affiliateLink = prompt("Enlace de afiliado:");
+            
+            if (title && author && review) {
+                const reviewsGrid = document.querySelector('#reviews .grid');
+                const newReview = document.createElement('div');
+                newReview.className = 'card review-card fade-in';
+                
+                const stars = '★'.repeat(parseInt(rating) || 0) + '☆'.repeat(5 - (parseInt(rating) || 0));
+                
+                newReview.innerHTML = `
+                    <div class="book-info">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='280' style='background:%23f5f5f5'><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-family='serif' font-size='14' fill='%23999'>Portada</text></svg>" alt="Portada" class="book-cover">
+                        <div class="book-details">
+                            <h4>${title}</h4>
+                            <p class="author">por ${author}</p>
+                            <div class="rating">${stars}</div>
+                            <p>${review}</p>
+                            ${affiliateLink ? `<a href="${affiliateLink}" class="affiliate-link">Comprar libro</a>` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                reviewsGrid.appendChild(newReview);
+            }
+        }
+
+        function addNewArticle() {
+            const title = prompt("Título del artículo:");
+            const excerpt = prompt("Extracto del artículo:");
+            
+            if (title && excerpt) {
+                const articlesContainer = document.querySelector('#articles .container');
+                const newArticle = document.createElement('div');
+                newArticle.className = 'article-card fade-in';
+                
+                const today = new Date().toLocaleDateString('es-ES', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                
+                newArticle.innerHTML = `
+                    <div class="article-date">${today}</div>
+                    <h3 class="article-title">${title}</h3>
+                    <p class="article-excerpt">${excerpt}</p>
+                    <a href="#" class="read-more">Leer más →</a>
+                `;
+                
+                // Insert before the button
+                const button = articlesContainer.querySelector('.text-center');
+                articlesContainer.insertBefore(newArticle, button);
+            }
+        }
+
+        function uploadPhoto(element) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        element.innerHTML = `<img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            input.click();
+        }
+
+        function playFromPlaylist(element) {
+            const songInfo = element.innerHTML;
+            const [title, artist] = songInfo.split(' - ');
+            
+            document.querySelector('.song-title').textContent = title.replace('<strong>', '').replace('</strong>', '');
+            document.querySelector('.song-artist').textContent = artist || 'Artista desconocido';
+            
+            // Remove active class from all playlist items
+            document.querySelectorAll('#music .music-player div[onclick]').forEach(item => {
+                item.style.background = 'transparent';
+            });
+            
+            // Add active class to clicked item
+            element.style.background = '#f0f0f0';
+        }
+
+        // Add smooth scrolling animation on load
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.fade-in');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
